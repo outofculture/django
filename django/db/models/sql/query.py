@@ -452,7 +452,7 @@ class Query(object):
 
     def has_results(self, using):
         q = self.clone()
-        if not q.distinct:
+        if not (q.distinct and (q.high_mark is not None or q.low_mark is not None)):
             q.clear_select_clause()
         q.clear_ordering(True)
         q.set_limits(high=1)
